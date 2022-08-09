@@ -12,17 +12,20 @@
           </tr>
         </thead>
       </table>
+      
+      <div style="width: 400px;">
           <% @chats.each do |chat| %>
             <% if chat.user_id == current_user.id %>
-                <p style="text-align: right; font-size: 15px;"><%= chat.message %></p>
-              <% else %>
-                <p style="text-align: left; font-size: 15px;"><%= chat.message %></p>
+              <p style="text-align: right;"><%= chat.message %></p>
+            <% else %>
+              <p style="text-align: left;"><%= chat.message %></p>
             <% end %>
           <% end %>
+      </div>
 
-        <%= form_with model: @chat, remote: true do |f| %>
+        <%= form_with model: @chat, local: false do |f| %>
           <%= f.text_area :message, rows: '3', placeholder: "140文字以内", class: 'w-100' %>
-          <%= f.hidden_field :room_id %>
+          <%= f.hidden_field :room_id, :value => @room.id %>
           <%= f.submit "投稿" %>
         <% end %>
     </div>
