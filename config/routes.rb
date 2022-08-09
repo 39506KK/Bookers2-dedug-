@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get "home/about"=>"homes#about"
  
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
-    resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
+    resource :favorites, only: [:create, :destroy]
   end
   
   resources :users, only: [:index,:show,:edit,:update] do
@@ -16,9 +16,8 @@ Rails.application.routes.draw do
     get 'followers' => 'relationships#followers', as: 'followers'
   end
   
-  get "search" => "searches#search"
+  get "/search" => "searches#search"
   
-  get 'chat/:id', to: 'chats#show', as: 'chat'
   resources :chats, only: [:show, :create]
   
 end
